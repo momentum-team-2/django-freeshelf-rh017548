@@ -16,9 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
+from core import views as core_views
 
 urlpatterns = [
+    path('', core_views.home, name='home'),
+    path('core_temp/', core_views.list_books, name='list_books'),
+    path('core_temp/add/', core_views.add_book, name='add_book'),
+    path('core_temp/<int:pk>/', core_views.show_book, name='show_book'),
+    path('core_temp/<int:pk>/edit/', core_views.edit_book,
+         name='edit_book'),
+    path('core_temp/<int:pk>/delete/', core_views.delete_book,
+         name='delete_book'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
+         
 ]
 
 if settings.DEBUG:
